@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\api\BaseController as BaseController;
+use App\Models\Product;
+use Validator;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends BaseController
 {
@@ -42,7 +45,7 @@ class ProductController extends BaseController
       return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
    }
 
-   public function update(Request $request)
+   public function update(Request $request, Product $product)
    {
       $input = $request->all();
 
