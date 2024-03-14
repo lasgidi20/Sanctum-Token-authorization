@@ -27,6 +27,7 @@ class RegisterController extends BaseController
     $user = User::create($input);
     $success['token'] =  $user->createToken('MyApp')->plainTextToken;
     $success['name'] =  $user->name;
+    $success['email'] =  $user->email;
 
     return $this->sendResponse($success, 'User register successfully.');
   }
@@ -37,11 +38,18 @@ class RegisterController extends BaseController
           $user = Auth::user(); 
           $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
           $success['name'] =  $user->name;
+          $success['email'] =  $user->email;
  
           return $this->sendResponse($success, 'User login successfully.');
       } 
       else{ 
           return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
       } 
+  }
+
+  public function logout()
+  {
+      Auth::logout();
+      return response()->json(['message' => 'Logged Out'], 200);
   }
 }
